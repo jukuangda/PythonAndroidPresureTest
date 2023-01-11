@@ -12,7 +12,7 @@ def recordMem(pid, pkgName, filePath):
 
     for item in memArr:
         line = item.lstrip()
-        if line.startswith("Java Heap:") or line.startswith("Native Heap:") or line.startswith("TOTAL:"):
+        if line.startswith("Java Heap:") or line.startswith("Native Heap:") or line.startswith("TOTAL:") or line.startswith("System:") or line.startswith("Code:") or line.startswith("Stack:") or line.startswith("Graphics:") or line.startswith("Private Other:"):
             valueArr = line.split()
             if valueArr[0] == 'Java':
                 java = int(valueArr[2])
@@ -20,12 +20,23 @@ def recordMem(pid, pkgName, filePath):
                 native = int(valueArr[2])
             elif valueArr[0] == 'TOTAL:':
                 total = int(valueArr[1])
+            elif valueArr[0] == 'System:':
+                sys = int(valueArr[1])
+            elif valueArr[0] == 'Code:':
+                code = int(valueArr[1])
+            elif valueArr[0] == 'Stack:':
+                stack = int(valueArr[1])
+            elif valueArr[0] == 'Graphics:':
+                graphics = int(valueArr[1])
+            elif valueArr[0] == 'Private':
+                priother = int(valueArr[2])
 
-    log_utils.log(pkgName + ": \t%d/java \t %d/native \t %d/total " % (java, native, total))
+    log_utils.log(pkgName + ": \t%d/java \t %d/native \t %d/total " %
+                  (java, native, total))
 
     memFile = filePath + pkgName + "_mem.txt"
     content = utils.getTime() + "|" + str(int(java / 1000)) + "|" + str(int(native / 1000)) + "|" + str(
-        int(total / 1000))
+        int(total / 1000)) + "|" + str(int(sys / 1000)) + "|" + str(int(code / 1000)) + "|" + str(int(stack / 1000)) + "|" + str(int(graphics / 1000))+ "|" + str(int(priother / 1000))
     file_utils.writeFileAdd(memFile, content + "\n")
 
 

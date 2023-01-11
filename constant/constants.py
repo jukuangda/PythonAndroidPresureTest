@@ -10,4 +10,4 @@ PATH_TASK = utils.getRootPath() + "/tempfile/task/"
 
 PATH_VIEW = utils.getRootPath() + "/view/"
 
-PATH_CHARS = PATH_VIEW + "index.html"
+PATH_CHARS = PATH_VIEW + time.strftime("%Y%m%d%H%M%S_", time.localtime()) +"index.html"

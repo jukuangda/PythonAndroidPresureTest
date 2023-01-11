@@ -99,6 +99,11 @@ def createChars():
         javaMemArr = []
         nativeMemArr = []
         totalMemArr = []
+        sysMemArr = []
+        codeMemArr = []
+        stackMemArr = []
+        graphicsMemArr = []
+        otherMemArr = []
 
         for i in range(len(contentLineArr)):
             arr = contentLineArr[i].split("|")
@@ -106,6 +111,11 @@ def createChars():
             javaMemArr.append(int(arr[1]))
             nativeMemArr.append(int(arr[2]))
             totalMemArr.append(int(arr[3]))
+            sysMemArr.append(int(arr[4]))
+            codeMemArr.append(int(arr[5]))
+            stackMemArr.append(int(arr[6]))
+            graphicsMemArr.append(int(arr[7]))
+            otherMemArr.append(int(arr[8]))
 
         timeArr = [d.replace("2020/", "") for d in timeArr]
 
@@ -126,7 +136,7 @@ def createChars():
                     data=[opts.MarkLineItem(type_="average", name="java_avg")]
                 )
             )
-                .add_yaxis(
+            .add_yaxis(
                 series_name="native",
                 y_axis=nativeMemArr,
                 linestyle_opts=opts.LineStyleOpts(width=2), is_smooth=True, is_symbol_show=False,
@@ -140,7 +150,7 @@ def createChars():
                     data=[opts.MarkLineItem(type_="average", name="native_avg")]
                 )
             )
-                .add_yaxis(
+            .add_yaxis(
                 series_name="total",
                 y_axis=totalMemArr,
                 linestyle_opts=opts.LineStyleOpts(width=2), is_smooth=True, is_symbol_show=False,
@@ -154,10 +164,89 @@ def createChars():
                     data=[opts.MarkLineItem(type_="average", name="total_avg")]
                 )
             )
-                .set_global_opts(
+            .add_yaxis(
+                series_name="system",
+                y_axis=sysMemArr,
+                linestyle_opts=opts.LineStyleOpts(width=2), is_smooth=True, is_symbol_show=False,
+                markpoint_opts=opts.MarkPointOpts(
+                    data=[
+                        opts.MarkPointItem(type_="max", name="system_max"),
+                        opts.MarkPointItem(type_="min", name="system_min"),
+                    ]
+                ),
+                markline_opts=opts.MarkLineOpts(
+                    data=[opts.MarkLineItem(
+                        type_="average", name="system_avg")]
+                )
+            )
+            .add_yaxis(
+                series_name="code",
+                y_axis=codeMemArr,
+                linestyle_opts=opts.LineStyleOpts(width=2), is_smooth=True, is_symbol_show=False,
+                markpoint_opts=opts.MarkPointOpts(
+                    data=[
+                        opts.MarkPointItem(type_="max", name="code_max"),
+                        opts.MarkPointItem(type_="min", name="code_min"),
+                    ]
+                ),
+                markline_opts=opts.MarkLineOpts(
+                    data=[opts.MarkLineItem(
+                        type_="average", name="code_avg")]
+                )
+            )
+            .add_yaxis(
+                series_name="stack",
+                y_axis=stackMemArr,
+                linestyle_opts=opts.LineStyleOpts(width=2), is_smooth=True, is_symbol_show=False,
+                markpoint_opts=opts.MarkPointOpts(
+                    data=[
+                        opts.MarkPointItem(type_="max", name="stack_max"),
+                        opts.MarkPointItem(type_="min", name="stack_min"),
+                    ]
+                ),
+                markline_opts=opts.MarkLineOpts(
+                    data=[opts.MarkLineItem(
+                        type_="average", name="stack_avg")]
+                )
+            )
+            .add_yaxis(
+                series_name="graphics",
+                y_axis=graphicsMemArr,
+                linestyle_opts=opts.LineStyleOpts(width=2), is_smooth=True, is_symbol_show=False,
+                markpoint_opts=opts.MarkPointOpts(
+                    data=[
+                        opts.MarkPointItem(type_="max", name="graphics_max"),
+                        opts.MarkPointItem(type_="min", name="graphics_min"),
+                    ]
+                ),
+                markline_opts=opts.MarkLineOpts(
+                    data=[opts.MarkLineItem(
+                        type_="average", name="graphics_avg")]
+                )
+            )
+            .add_yaxis(
+                series_name="private_other",
+                y_axis=otherMemArr,
+                linestyle_opts=opts.LineStyleOpts(width=2), is_smooth=True, is_symbol_show=False,
+                markpoint_opts=opts.MarkPointOpts(
+                    data=[
+                        opts.MarkPointItem(
+                            type_="max", name="private_other_max"),
+                        opts.MarkPointItem(
+                            type_="min", name="private_other_min"),
+                    ]
+                ),
+                markline_opts=opts.MarkLineOpts(
+                    data=[opts.MarkLineItem(
+                        type_="average", name="private_other_avg")]
+                )
+            )
+            .set_global_opts(
                 title_opts=opts.TitleOpts(subtitle="MEM : " + processName,
                                           subtitle_textstyle_opts=opts.TextStyleOpts(color="black")),
                 tooltip_opts=opts.TooltipOpts(trigger="axis"),
+                datazoom_opts=opts.DataZoomOpts(
+                    type_="slider", range_start=20, range_end=100)
             )
         )
 
