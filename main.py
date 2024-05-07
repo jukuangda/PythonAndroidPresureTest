@@ -48,12 +48,12 @@ def set_win_center(root, curWidth='', curHight=''):
 
     # 获取屏幕宽度和高度
     scn_w, scn_h = root.maxsize()
-    # print(scn_w, scn_h)
+    print(scn_w, scn_h)
 
     # 计算中心坐标
     cen_x = (scn_w - curWidth) / 2
     cen_y = (scn_h - curHight) / 3
-    # print(cen_x, cen_y)
+    print(cen_x, cen_y)
 
     # 设置窗口初始大小和位置
     size_xy = '%dx%d+%d+%d' % (curWidth, curHight, cen_x, cen_y)
