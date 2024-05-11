@@ -25,4 +25,7 @@ def open(url):
 
 
 def getPid(pkgName):
-    return excuteCmd("adb shell pidof " + pkgName).replace("\n", "")
+    # return excuteCmd("adb shell pidof " + pkgName).replace("\n", "")
+    return excuteCmd(
+        "adb shell ps | grep " + pkgName + " | head -1 | awk '{ print $2 }'"
+    ).replace("\n", "")
